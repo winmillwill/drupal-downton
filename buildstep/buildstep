@@ -1,12 +1,8 @@
 #!/bin/bash
 set -e
 NAME="$1"
-TAG="$2"
-
-# Place the app inside the container
-ID=$(cat | docker run -i -a stdin progrium/buildstep /bin/bash -c "mkdir -p /app && tar -xC /app")
-test $(docker wait $ID) -eq 0
-docker commit $ID $NAME $TAG > /dev/null
+PROJECT="$2"
+TAG="$3"
 
 # Run the builder script and attach to view output
 if [[ -z "$TAG" ]]; then
@@ -14,7 +10,7 @@ if [[ -z "$TAG" ]]; then
 else
   IMAGE=$NAME:$TAG
 fi
-ID=$(docker run -d $IMAGE /build/builder)
+ID=$(docker run -d -v $PATH:/home/core/share/drupal/downton $IMAGE /build/builder)
 docker attach $ID
 test $(docker wait $ID) -eq 0
 docker commit $ID $NAME $TAG > /dev/null
