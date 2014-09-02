@@ -1,0 +1,29 @@
+{
+  "name": "drupal/drop_ship",
+  "type": "drupal-module",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://static.drupal-packagist.org/v0.2.0"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:promet/kw_manifests"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:promet/drop_ship"
+    }
+  ],
+  "require": {
+    "drupal/drupal": "~7.30",
+    "drupal/kw_manifests": "1.*",
+    "drupal/drop_ship": "*",
+    "drupal/drupalctl": "dev-master",
+    "composer/composer": "~1.0@alpha"
+  },
+  "require-dev": {
+    "psy/psysh": "*",
+    "phpspec/phpspec": "*"
+  }
+}
