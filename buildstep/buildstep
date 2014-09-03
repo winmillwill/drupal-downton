@@ -5,12 +5,7 @@ PROJECT="$2"
 TAG="$3"
 
 # Run the builder script and attach to view output
-if [[ -z "$TAG" ]]; then
-  IMAGE=$NAME
-else
-  IMAGE=$NAME:$TAG
-fi
-ID=$(docker run -d -v $PATH:/home/core/share/drupal/downton $IMAGE /build/builder)
+ID=$(docker run -d -v $PROJECT:/app progrium/buildstep /build/builder)
 docker attach $ID
 test $(docker wait $ID) -eq 0
 docker commit $ID $NAME $TAG > /dev/null

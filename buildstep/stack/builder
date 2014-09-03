@@ -2,15 +2,15 @@
 set -e
 
 app_root=/app
-build_root=/app
+build_root=/build/app
 cache_root=/cache/app
 buildpack_root=/build/buildpacks
-
-cp -r /app /build
 
 buildpacks=($buildpack_root/*)
 selected_buildpack=
 
+rm -rf $app_root/.heroku
+cp -r $app_root $build_root
 mkdir -p $cache_root
 mkdir -p $build_root/.profile.d
 
@@ -64,7 +64,6 @@ fi
 default_types=$(ruby -e "require 'yaml';puts (YAML.load_file('$build_root/.release')['default_process_types'] || {}).keys().join(', ')")
 [[ $default_types ]] && echo "       Default process types for $buildpack_name -> $default_types"
 
-mkdir -p $build_root/.profile.d
 ruby -e "require 'yaml';(YAML.load_file('$build_root/.release')['config_vars'] || {}).each{|k,v| puts \"#{k}=#{v}\"}" > $build_root/.profile.d/config_vars
 
 cat > /exec <<EOF
@@ -90,3 +89,5 @@ else
 fi
 EOF
 chmod +x /start
+
+cp -r /build/app/ /app
