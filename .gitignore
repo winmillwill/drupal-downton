@@ -1,1 +1,7 @@
+.composer
+.heroku
+.profile.d
+.release
+fig.yml
 vendor
+www

@@ -1,5 +1,5 @@
 {
-  "name": "drupal/drop_ship",
+  "name": "drupal/downton",
   "type": "drupal-module",
   "repositories": [
     {
@@ -16,14 +16,24 @@
     }
   ],
   "require": {
-    "drupal/drupal": "~7.30",
-    "drupal/kw_manifests": "1.*",
+    "composer/composer": "~1.0@alpha",
     "drupal/drop_ship": "*",
+    "drupal/drupal": "~7.30",
     "drupal/drupalctl": "dev-master",
-    "composer/composer": "~1.0@alpha"
+    "drupal/kw_manifests": "1.*",
+    "drupal/oauth": "~7.3",
+    "drupal/services": "~7.3",
+    "drupal/tangler": "*",
+    "ext-gd": "*",
+    "guzzle/guzzle": "~3.9",
+    "php": "~5.5"
   },
   "require-dev": {
     "psy/psysh": "*",
     "phpspec/phpspec": "*"
+  },
+  "scripts": {
+      "post-update-cmd": "vendor/bin/drupal_tangle",
+      "post-install-cmd": "vendor/bin/drupal_tangle"
   }
 }

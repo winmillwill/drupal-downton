@@ -1,0 +1,35 @@
+drupal:
+  image: downton
+  links:
+    - db
+  volumes:
+    - /path/to/top:/app
+  environment:
+    MYSQL_DATABASE: drupal
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    PORT: 80
+  ports:
+    - "80:80"
+  command:
+    /start web www
+drupalctl:
+  image: downton
+  links:
+    - db
+  volumes:
+    - /path/to/top:/app
+  environment:
+    MYSQL_DATABASE: drupal
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+  entrypoint: [/exec, vendor/bin/drupalctl]
+db:
+  image: orchardup/mysql
+  detach: true
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_DATABASE: drupal
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
